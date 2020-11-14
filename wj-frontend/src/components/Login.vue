@@ -30,7 +30,7 @@ export default {
         .then(successResponse => {
           if (successResponse.data.code === 200) {
             this.$router.replace({ path: '/index' })
-          }
+          } else { console.log(successResponse.data.code) }
         })
         .catch(failResponse => {
         })
