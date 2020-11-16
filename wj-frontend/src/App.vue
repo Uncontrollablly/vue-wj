@@ -1,10 +1,14 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/index">Index</router-link> |
-      <router-link to="/login">Login</router-link>
+      <router-link to="/index">
+        Index
+      </router-link> |
+      <router-link to="/login">
+        Login
+      </router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
@@ -21,6 +25,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background:url("./assets/eva.jpg") no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 #nav {

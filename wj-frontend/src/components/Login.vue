@@ -1,11 +1,38 @@
 <template>
-  <div>
-      用户名:<input type="text" v-model="loginForm.username" placeholder="请输入用户名"/>
-      <br><br>
-      密码： <input type="password" v-model="loginForm.password" placeholder="请输入密码"/>
-      <br><br>
-      <button v-on:click="login">登录</button>
-  </div>
+  <el-form
+    class="login"
+    label="登录"
+    label-position="left"
+  >
+    <h3 class="login__title">
+      系统登录
+    </h3>
+    <el-form-item>
+      <el-input
+        v-model="loginForm.username"
+        type="text"
+        auto-complete="off"
+        placeholder="账号"
+      />
+    </el-form-item>
+    <el-form-item>
+      <el-input
+        v-model="loginForm.password"
+        type="password"
+        auto-complete="off"
+        placeholder="密码"
+      />
+    </el-form-item>
+    <el-form-item>
+      <el-button
+        type="primary"
+        style="background: #505458;border: none"
+        @click="login"
+      >
+        登录
+      </el-button>
+    </el-form-item>
+  </el-form>
 </template>
 
 <script>
@@ -14,7 +41,7 @@ export default {
   data () {
     return {
       loginForm: {
-        username: '',
+        username: 'admin',
         password: ''
       },
       responseResult: []
@@ -38,3 +65,22 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .login {
+    border-radius: 15px;
+    background-clip: padding-box;
+    margin: 90px auto;
+    width: 350px;
+    padding: 35px 35px 15px 35px;
+    background: #fff;
+    border: 1px solid #eaeaea;
+    box-shadow: 0 0 25px #cac6c6;
+  }
+
+  .login__title {
+    margin: 0px auto 40px auto;
+    text-align: center;
+    color: #505458;
+  }
+</style>
