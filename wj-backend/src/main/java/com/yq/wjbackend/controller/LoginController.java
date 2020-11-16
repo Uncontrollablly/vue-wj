@@ -1,5 +1,7 @@
 package com.yq.wjbackend.controller;
 
+import javax.servlet.http.HttpSession;
+
 import com.yq.wjbackend.pojo.Result;
 import com.yq.wjbackend.pojo.User;
 import com.yq.wjbackend.service.UserService;
@@ -18,7 +20,7 @@ public class LoginController {
     @CrossOrigin
     @PostMapping(value = "api/login")
     @ResponseBody
-    public Result login(@RequestBody User requestUser) {
+    public Result login(@RequestBody User requestUser, HttpSession session) {
         String username = requestUser.getUsername();
         String password = requestUser.getPassword();
         // 对 html 标签进行转义，防止 XSS 攻击
@@ -29,14 +31,8 @@ public class LoginController {
             System.out.println(message);
             return new Result(400);
         } else {
+            session.setAttribute("user", user);
             return new Result(200);
         }
-    }
-
-    
-    @GetMapping("/*")
-    @ResponseBody
-    public String test() {
-        return "abcdefg";
     }
 }
