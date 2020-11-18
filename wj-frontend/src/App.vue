@@ -24,21 +24,20 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: white;
   position: fixed;
   width: 100%;
   height: 100%;
-  background:url("./assets/eva.jpg") no-repeat;
-  background-position: center;
-  background-size: cover;
 }
 
 #nav {
   padding: 30px;
+  position: relative;
+  z-index: 1;
 
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: #ffffff;
 
     &.router-link-exact-active {
       color: #42b983;
