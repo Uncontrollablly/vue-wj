@@ -34,3 +34,9 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+// 为什么不添加router任意路径都会匹配到index.html
+/**
+ * 起作用的选项：devServer.historyApiFallback
+ * 设置的位置：node_modules\@vue\vue-cli-serivice\commands\serve.js 中
+ */
