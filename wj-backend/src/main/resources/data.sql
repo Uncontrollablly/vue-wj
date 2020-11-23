@@ -115,6 +115,6 @@ INSERT INTO `category` VALUES ('6', '科技');
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', '35b9529f89cfb9b848060ca576237e17');
+INSERT INTO `user` VALUES ('1', 'admin', '123');
 INSERT INTO `user` VALUES ('2', 'test', '85087738b6c1e1d212683bfafc163853');
 INSERT INTO `user` VALUES ('3', 'editor', '8583a2d965d6159edbf65c82d871fa3e');

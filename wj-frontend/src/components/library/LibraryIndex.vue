@@ -9,17 +9,19 @@
     </el-aside>
     <el-main>
       <Content />
+      <AddBook />
     </el-main>
   </el-container>
 </template>
 
 <script>
-
 import SideMenu from './SideMenu'
 import Content from './Content'
+import AddBook from './AddBook'
+
 export default {
   name: 'AppLibrary',
-  components: { SideMenu, Content }
+  components: { SideMenu, Content, AddBook }
 }
 </script>
 
