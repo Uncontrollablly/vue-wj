@@ -8,8 +8,7 @@
       <SideMenu />
     </el-aside>
     <el-main>
-      <Content />
-      <AddBook />
+      <Content class="books-area" />
     </el-main>
   </el-container>
 </template>
@@ -17,11 +16,10 @@
 <script>
 import SideMenu from './SideMenu'
 import Content from './Content'
-import AddBook from './AddBook'
 
 export default {
   name: 'AppLibrary',
-  components: { SideMenu, Content, AddBook }
+  components: { SideMenu, Content }
 }
 </script>
 

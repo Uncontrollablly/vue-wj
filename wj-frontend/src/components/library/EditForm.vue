@@ -8,9 +8,12 @@
       title="添加/修改图书"
       :visible.sync="dialogVisible"
       :modal-append-to-body="false"
-      label-width="120px"
+      @close="clear"
     >
-      <el-form :model="form">
+      <el-form
+        :model="form"
+        label-width="120px"
+      >
         <el-form-item label="书名">
           <el-input
             v-model="form.title"
@@ -71,7 +74,7 @@
         </el-form-item>
         <el-form-item label="分类">
           <el-select
-            v-model="form.type"
+            v-model="form.category.id"
             placeholder="请选择分类"
           >
             <el-option
@@ -90,8 +93,10 @@
         <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button
           type="primary"
-          @click="dialogVisible = false"
-        >确 定</el-button>
+          @click="onSubmit"
+        >
+          确 定
+        </el-button>
       </span>
     </el-dialog>
   </div>
@@ -99,11 +104,22 @@
 
 <script>
 export default {
-  name: 'AddBook',
+  name: 'EditForm',
   data () {
     return {
       dialogVisible: false,
       form: {
+        id: '',
+        title: '',
+        author: '',
+        date: '',
+        press: '',
+        cover: '',
+        abs: '',
+        category: {
+          id: '',
+          name: ''
+        },
         fileList: [
           {
             name: 'food.jpeg',
@@ -158,6 +174,36 @@ export default {
     },
     beforeRemove (file, fileList) {
       return this.$confirm(`确定移除 ${file.name}？`)
+    },
+    clear () {
+      this.form = {
+        id: '',
+        title: '',
+        author: '',
+        date: '',
+        press: '',
+        cover: '',
+        abs: '',
+        category: ''
+      }
+    },
+    onSubmit () {
+      this.$axios
+        .post('/books', {
+          id: this.form.id,
+          cover: this.form.cover,
+          title: this.form.title,
+          author: this.form.author,
+          date: this.form.date,
+          press: this.form.press,
+          abs: this.form.abs,
+          category: this.form.category
+        }).then(resp => {
+          if (resp && resp.status === 200) {
+            this.dialogFormVisible = false
+            this.$emit('onSubmit')
+          }
+        })
     }
   }
 }
