@@ -1,73 +1,70 @@
 <template>
   <div>
-    <el-row style="height: 840px">
+    <el-row>
       <search-bar
         ref="searchBar"
-        @onSearch="searchResult"
+        @search="searchResult"
       />
-      <el-tooltip
-        v-for="item in books.slice(
-          (currentPage - 1) * pagesize,
-          currentPage * pagesize
-        )"
-        :key="item.id"
-        effect="dark"
-        placement="right-start"
-      >
-        <p
-          slot="content"
-          style="font-size: 14px; margin-bottom: 6px"
+      <div class="book-container">
+        <el-tooltip
+          v-for="item in books.slice(
+            (currentPage - 1) * pagesize,
+            currentPage * pagesize
+          )"
+          :key="item.id"
+          effect="dark"
+          placement="right-start"
         >
-          {{ item.title }}
-        </p>
-        <p
-          slot="content"
-          style="font-size: 13px; margin-bottom: 6px"
-        >
-          <span>{{ item.author }}</span> / <span>{{ item.date }}</span> /
-          <span>{{ item.press }}</span>
-        </p>
-        <p
-          slot="content"
-          style="width: 300px"
-          class="abstract"
-        >
-          {{ item.abs }}
-        </p>
-        <el-card
-          class="book"
-          body-style="padding:10px"
-          shadow="hover"
-        >
-          <div
-            class="cover"
-            @click="editBook(item)"
-          >
-            <img
-              :src="item.cover"
-              alt="封面"
+          <template slot="content">
+            <p style="font-size: 14px; margin-bottom: 6px">
+              {{ item.title }}
+            </p>
+            <p style="font-size: 13px; margin-bottom: 6px">
+              <span>{{ item.author }}</span> / <span>{{ item.date }}</span> /
+              <span>{{ item.press }}</span>
+            </p>
+            <p
+              style="width: 300px"
+              class="abstract"
             >
-          </div>
-          <div class="content">
-            <div class="info">
-              <div class="title">
-                <a href="">{{ item.title }}</a>
-              </div>
-              <div class="author">
-                {{ item.author }}
-              </div>
+              {{ item.abs }}
+            </p>
+          </template>
+          <el-card
+            class="book"
+            body-style="padding:10px"
+            shadow="hover"
+          >
+            <div
+              class="cover"
+              @click="editBook(item)"
+            >
+              <img
+                :src="item.cover"
+                alt="封面"
+              >
             </div>
-            <i
-              class="el-icon-delete"
-              @click="deleteBook(item.id)"
-            />
-          </div>
-        </el-card>
-      </el-tooltip>
-      <edit-form
-        ref="edit"
-        @onSubmit="loadBooks()"
-      />
+            <div class="content">
+              <div class="info">
+                <div class="title">
+                  <a href="">{{ item.title }}</a>
+                </div>
+                <div class="author">
+                  {{ item.author }}
+                </div>
+              </div>
+              <i
+                class="el-icon-delete"
+                @click="deleteBook(item.id)"
+              />
+            </div>
+          </el-card>
+        </el-tooltip>
+        <edit-form
+          ref="edit"
+          @submit="loadBooks()"
+        />
+      </div>
     </el-row>
     <el-row>
       <el-pagination
@@ -88,17 +85,7 @@ export default {
   components: { EditForm, SearchBar },
   data () {
     return {
-      books: [
-        {
-          cover: 'https://i.loli.net/2019/04/10/5cada7e73d601.jpg',
-          title: '三体',
-          author: '刘慈欣',
-          date: '2019-05-05',
-          press: '重庆出版社',
-          abs:
-            '文化大革命如火如荼进行的同时。军方探寻外星文明的绝秘计划“红岸工程”取得了突破性进展。但在按下发射键的那一刻，历经劫难的叶文洁没有意识到，她彻底改变了人类的命运。地球文明向宇宙发出的第一声啼鸣，以太阳为中心，以光速向宇宙深处飞驰……'
-        }
-      ],
+      books: [],
       currentPage: 1,
       pagesize: 17
     }
@@ -169,55 +156,64 @@ export default {
 </script>
 
 <style scoped lang="less">
-.cover {
-  margin-bottom: 5px;
-}
-
-img {
-  width: 115px;
-  height: 172px;
-}
-
-.content {
+.book-container {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
 
-  .info {
-    .title {
-      font-size: 14px;
-      text-align: left;
+  .book {
+    width: 150px;
+    height: 233px;
+    margin-bottom: 20px;
+    margin-right: 15px;
+
+    .cover {
+      margin-bottom: 5px;
     }
 
-    .author {
-      color: #333;
-      font-size: 12px;
-      text-align: left;
+    img {
+      width: 100%;
+      height: 172px;
+    }
+
+    .content {
+      display: flex;
+      justify-content: space-between;
+
+      .info {
+        .title {
+          font-size: 14px;
+          text-align: left;
+
+          a {
+            text-decoration: none;
+
+            &:link,
+            &:visited,
+            &:focus {
+              color: #3377aa;
+            }
+          }
+        }
+
+        .author {
+          color: #333;
+          font-size: 12px;
+          text-align: left;
+        }
+      }
+    }
+
+    .el-icon-delete {
+      cursor: pointer;
+
+      &::before {
+        vertical-align: super;
+      }
     }
   }
 
-  .el-icon-delete {
-    cursor: pointer;
+  .abstract {
+    line-height: 17px;
   }
-}
-
-.abstract {
-  line-height: 17px;
-}
-
-a {
-  text-decoration: none;
-}
-
-a:link,
-a:visited,
-a:focus {
-  color: #3377aa;
-}
-
-.book {
-  width: 135px;
-  height: 233px;
-  margin-bottom: 20px;
-  margin-right: 15px;
 }
 </style>

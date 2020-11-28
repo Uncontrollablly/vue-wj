@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-bottom: 30px;display: flex;justify-content: center;align-items: center">
+  <div class="search-bar">
     <el-input
       v-model="keywords"
       placeholder="通过书名或作者搜索..."
@@ -31,12 +31,17 @@ export default {
   },
   methods: {
     searchClick () {
-      this.$emit('onSearch')
+      this.$emit('search')
     }
   }
 }
 </script>
 
 <style scoped>
-
+.search-bar {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
 </style>

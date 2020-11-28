@@ -6,13 +6,13 @@
     />
     <el-dialog
       title="添加/修改图书"
+      width="30%"
       :visible.sync="dialogVisible"
-      :modal-append-to-body="false"
       @close="clear"
     >
       <el-form
         :model="form"
-        label-width="120px"
+        label-width="70px"
       >
         <el-form-item label="书名">
           <el-input
@@ -200,10 +200,10 @@ export default {
           category: this.form.category
         }).then(resp => {
           if (resp && resp.status === 200) {
-            this.dialogFormVisible = false
-            this.$emit('onSubmit')
+            this.$emit('submit')
           }
         })
+      this.dialogVisible = false
     }
   }
 }
