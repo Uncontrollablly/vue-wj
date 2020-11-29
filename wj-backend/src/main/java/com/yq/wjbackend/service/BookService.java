@@ -35,6 +35,7 @@ public class BookService {
         return bookDAO.findAllByCategory(category);
     }
 
+    // DAO 里是两个参数，搜索时无论输入的是作者还是书名，都会对两个字段进行匹配。
     public List<Book> Search(String keywords) {
         return bookDAO.findAllByTitleLikeOrAuthorLike('%' + keywords + '%', '%' + keywords + '%');
     }

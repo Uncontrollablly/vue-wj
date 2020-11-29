@@ -5,10 +5,15 @@
       style="margin-top: 20px;"
     >
       <!-- <switch /> -->
-      <SideMenu />
+      <SideMenu
+        @select-category="listByCategory"
+      />
     </el-aside>
     <el-main>
-      <Content class="books-area" />
+      <Content
+        ref="booksArea"
+        class="books-area"
+      />
     </el-main>
   </el-container>
 </template>
@@ -19,7 +24,17 @@ import Content from './Content'
 
 export default {
   name: 'AppLibrary',
-  components: { SideMenu, Content }
+  components: { SideMenu, Content },
+  methods: {
+    listByCategory (cid) {
+      const url = 'categories/' + cid + '/books'
+      this.$axios.get(url).then(resp => {
+        if (resp && resp.status === 200) {
+          this.$refs.booksArea.books = resp.data
+        }
+      })
+    }
+  }
 }
 </script>
 

@@ -2,12 +2,13 @@
   <div>
     <i
       class="el-icon-circle-plus-outline"
-      @click="dialogVisible = true"
+      @click="$emit('update:dialogVisible', true)"
     />
     <el-dialog
       title="添加/修改图书"
       width="30%"
-      :visible.sync="dialogVisible"
+      :visible="dialogVisible"
+      :before-close="close"
       @close="clear"
     >
       <el-form
@@ -74,6 +75,7 @@
         </el-form-item>
         <el-form-item label="分类">
           <el-select
+            v-if="form.category"
             v-model="form.category.id"
             placeholder="请选择分类"
           >
@@ -90,7 +92,7 @@
         slot="footer"
         class="dialog-footer"
       >
-        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button @click="close">取 消</el-button>
         <el-button
           type="primary"
           @click="onSubmit"
@@ -105,58 +107,25 @@
 <script>
 export default {
   name: 'EditForm',
+  props: {
+    dialogVisible: {
+      type: Boolean,
+      default: false,
+      required: true
+    },
+    initialFormData: {
+      type: Object,
+      default: () => {}
+    },
+    initialOptions: {
+      type: Array,
+      default: () => []
+    }
+  },
   data () {
     return {
-      dialogVisible: false,
-      form: {
-        id: '',
-        title: '',
-        author: '',
-        date: '',
-        press: '',
-        cover: '',
-        abs: '',
-        category: {
-          id: '',
-          name: ''
-        },
-        fileList: [
-          {
-            name: 'food.jpeg',
-            url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-          },
-          {
-            name: 'food2.jpeg',
-            url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-          }
-        ]
-      },
-      options: [
-        {
-          label: '文学',
-          value: '1'
-        },
-        {
-          label: '流行',
-          value: '2'
-        },
-        {
-          label: '文化',
-          value: '3'
-        },
-        {
-          label: '生活',
-          value: '4'
-        },
-        {
-          label: '经管',
-          value: '5'
-        },
-        {
-          label: '科技',
-          value: '6'
-        }
-      ]
+      form: this.initialFormData,
+      options: this.initialOptions
     }
   },
   mounted () {
@@ -174,6 +143,9 @@ export default {
     },
     beforeRemove (file, fileList) {
       return this.$confirm(`确定移除 ${file.name}？`)
+    },
+    close () {
+      this.$emit('update:dialogVisible', false)
     },
     clear () {
       this.form = {
@@ -202,8 +174,9 @@ export default {
           if (resp && resp.status === 200) {
             this.$emit('submit')
           }
+        }).finally(() => {
+          this.close()
         })
-      this.dialogVisible = false
     }
   }
 }
