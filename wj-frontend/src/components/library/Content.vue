@@ -2,7 +2,6 @@
   <div>
     <el-row>
       <search-bar
-        ref="searchBar"
         @search="searchResult"
       />
       <div class="book-container">
@@ -79,7 +78,7 @@
 <script>
 import EditForm from './EditForm'
 import SearchBar from './SearchBar'
-import { OPTIONS } from '../../constants/index'
+import { OPTIONS } from '@/constants/index'
 
 export default {
   name: 'Content',
