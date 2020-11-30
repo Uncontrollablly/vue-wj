@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     searchClick () {
-      this.$emit('search')
+      this.$emit('search', this.keywords)
     }
   }
 }

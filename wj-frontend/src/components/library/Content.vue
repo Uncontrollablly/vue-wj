@@ -79,10 +79,17 @@
 <script>
 import EditForm from './EditForm'
 import SearchBar from './SearchBar'
+import { OPTIONS } from '../../constants/index'
 
 export default {
   name: 'Content',
   components: { EditForm, SearchBar },
+  props: {
+    category: {
+      type: String,
+      default: ''
+    }
+  },
   data () {
     return {
       books: [],
@@ -112,32 +119,7 @@ export default {
           }
         ]
       },
-      options: [
-        {
-          label: '文学',
-          value: '1'
-        },
-        {
-          label: '流行',
-          value: '2'
-        },
-        {
-          label: '文化',
-          value: '3'
-        },
-        {
-          label: '生活',
-          value: '4'
-        },
-        {
-          label: '经管',
-          value: '5'
-        },
-        {
-          label: '科技',
-          value: '6'
-        }
-      ]
+      options: OPTIONS
     }
   },
   computed: {
@@ -146,6 +128,11 @@ export default {
         (this.currentPage - 1) * this.pagesize,
         this.currentPage * this.pagesize
       )
+    }
+  },
+  watch: {
+    category (newVal) {
+      this.listByCategory(newVal)
     }
   },
   mounted: function () {
@@ -166,9 +153,9 @@ export default {
         }
       })
     },
-    searchResult () {
+    searchResult (keywords) {
       this.$axios
-        .get('/search?keywords=' + this.$refs.searchBar.keywords, {})
+        .get('/search?keywords=' + keywords)
         .then((resp) => {
           if (resp && resp.status === 200) {
             this.books = resp.data
@@ -210,6 +197,14 @@ export default {
         }
       }
       this.dialogVisible = true
+    },
+    listByCategory (cid) {
+      const url = 'categories/' + cid + '/books'
+      this.$axios.get(url).then(resp => {
+        if (resp && resp.status === 200) {
+          this.books = resp.data
+        }
+      })
     }
   }
 }
