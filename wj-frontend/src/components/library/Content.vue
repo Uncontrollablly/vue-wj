@@ -56,13 +56,19 @@
             </div>
           </el-card>
         </el-tooltip>
-        <edit-form
-          v-if="dialogVisible"
-          :initial-form-data="form"
-          :initial-options="options"
-          :dialog-visible.sync="dialogVisible"
-          @submit="loadBooks"
-        />
+        <div class="dialog">
+          <i
+            class="el-icon-circle-plus-outline"
+            @click="dialogVisible = true"
+          />
+          <edit-form
+            v-if="dialogVisible"
+            :initial-form-data="form"
+            :initial-options="options"
+            :dialog-visible.sync="dialogVisible"
+            @submit="loadBooks"
+          />
+        </div>
       </div>
     </el-row>
     <el-row>
@@ -269,5 +275,15 @@ export default {
   .abstract {
     line-height: 17px;
   }
+
+  .dialog {
+  .el-icon-circle-plus-outline {
+    margin: 50px 0 0 20px;
+    font-size: 100px;
+    color: black;
+    float: left;
+    cursor: pointer;
+  }
+}
 }
 </style>

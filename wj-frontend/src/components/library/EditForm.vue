@@ -1,9 +1,5 @@
 <template>
   <div>
-    <i
-      class="el-icon-circle-plus-outline"
-      @click="$emit('update:dialogVisible', true)"
-    />
     <el-dialog
       title="添加/修改图书"
       width="30%"
@@ -41,30 +37,14 @@
           />
         </el-form-item>
         <el-form-item label="封面">
-          <el-upload
-            class="upload"
-            action="https://localhost:8443"
-            :on-preview="handlePreview"
-            :on-remove="handleRemove"
-            :before-remove="beforeRemove"
-            multiple
-            :limit="3"
-            :on-exceed="handleExceed"
-            :file-list="form.fileList"
-          >
-            <el-button
-              size="small"
-              type="primary"
-            >
-              点击上传
-            </el-button>
-            <div
-              slot="tip"
-              class="el-upload__tip"
-            >
-              只能上传jpg/png文件，且不超过500kb
-            </div>
-          </el-upload>
+          <el-input
+            v-model="form.cover"
+            autocomplete="off"
+            placeholder="图片 URL"
+          />
+          <img-upload
+            @upload-succeed="updateCoverUrl"
+          />
         </el-form-item>
         <el-form-item label="简介">
           <el-input
@@ -105,8 +85,11 @@
 </template>
 
 <script>
+import ImgUpload from '@/components/library/ImgUpload'
+
 export default {
   name: 'EditForm',
+  components: { ImgUpload },
   props: {
     dialogVisible: {
       type: Boolean,
@@ -128,22 +111,7 @@ export default {
       options: this.initialOptions
     }
   },
-  mounted () {
-    // 发送请求获取数据，设置data.form
-  },
   methods: {
-    handleRemove (file, fileList) {
-      console.log(file, fileList)
-    },
-    handlePreview (file) {
-      console.log(file)
-    },
-    handleExceed (files, fileList) {
-      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
-    },
-    beforeRemove (file, fileList) {
-      return this.$confirm(`确定移除 ${file.name}？`)
-    },
     close () {
       this.$emit('update:dialogVisible', false)
     },
@@ -177,17 +145,14 @@ export default {
         }).finally(() => {
           this.close()
         })
+    },
+    updateCoverUrl (url) {
+      this.form.cover = url
     }
   }
 }
 </script>
 
 <style scoped lang="less">
-  .el-icon-circle-plus-outline {
-    margin: 50px 0 0 20px;
-    font-size: 100px;
-    color: black;
-    float: left;
-    cursor: pointer;
-  }
+
 </style>
