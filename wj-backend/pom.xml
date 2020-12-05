@@ -12,7 +12,8 @@
 	<artifactId>wj-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>wj-backend</name>
-	<description>Demo project for Spring Boot</description>
+	<description>White Jotter</description>
+	<packaging>jar</packaging>
 
 	<properties>
 		<java.version>11</java.version>

@@ -89,7 +89,7 @@ CREATE TABLE `book` (
   `author` varchar(255) DEFAULT '',
   `date` varchar(20) DEFAULT '',
   `press` varchar(255) DEFAULT '',
-  `abs` varchar(255) DEFAULT NULL,
+  `abs` varchar(500) DEFAULT NULL,
   `cid` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_book_category_on_cid` (`cid`),

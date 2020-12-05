@@ -36,6 +36,15 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/',
+    name: 'index',
+    redirect: '/index',
+    component: AppIndex,
+    meta: {
+      requireAuth: true
+    }
   }
 ]
 

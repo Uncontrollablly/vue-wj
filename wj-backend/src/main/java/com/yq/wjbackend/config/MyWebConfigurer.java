@@ -31,7 +31,7 @@ public class MyWebConfigurer implements WebMvcConfigurer {
                 .allowedHeaders("*");
     }
 
-    // 配置一个虚拟路径来映射文件的真实路径
+    // 配置静态资源的路径，即访问ip:port/api/file/xxx会访问到d:/workspace/img/xxx
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/api/file/**").addResourceLocations("file:" + "d:/workspace/img/");
