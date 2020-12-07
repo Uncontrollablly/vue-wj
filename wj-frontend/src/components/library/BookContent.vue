@@ -2,7 +2,7 @@
   <div>
     <el-row>
       <search-bar
-        @search="searchResult"
+        @search="searchBook"
       />
       <div class="book-container">
         <el-tooltip
@@ -87,7 +87,7 @@ import SearchBar from './SearchBar'
 import { OPTIONS } from '@/constants/index'
 
 export default {
-  name: 'Content',
+  name: 'BookContent',
   components: { EditForm, SearchBar },
   props: {
     category: {
@@ -158,12 +158,12 @@ export default {
         }
       })
     },
-    searchResult (keywords) {
+    searchBook (keywords) {
       this.$axios
         .get('/search?keywords=' + keywords)
         .then((resp) => {
           if (resp && resp.status === 200) {
-            this.books = resp.data
+            this.books = resp.data.filter(book => book.category.id.toString() === this.category)
           }
         })
     },

@@ -32,7 +32,9 @@ public class BookService {
 
     public List<Book> listByCategory(int cid) {
         Category category = categoryService.get(cid);
-        return bookDAO.findAllByCategory(category);
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        List<Book> result = bookDAO.findAllByCategory(category, sort);
+        return result;
     }
 
     // DAO 里是两个参数，搜索时无论输入的是作者还是书名，都会对两个字段进行匹配。

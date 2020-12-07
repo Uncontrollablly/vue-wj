@@ -5,7 +5,7 @@
       style="margin-top: 20px;"
     >
       <!-- <switch /> -->
-      <SideMenu
+      <side-menu
         :options="options"
         @select-category="changeCategory"
       />
@@ -28,7 +28,7 @@
       /> -->
     </el-aside>
     <el-main>
-      <Content
+      <book-content
         class="books-area"
         :category="selectedCategory"
       />
@@ -38,7 +38,7 @@
 
 <script>
 import SideMenu from './SideMenu'
-import Content from './Content'
+import BookContent from './BookContent.vue'
 import { OPTIONS } from '../../constants/index'
 
 // 2
@@ -53,7 +53,10 @@ import { OPTIONS } from '../../constants/index'
 
 export default {
   name: 'AppLibrary',
-  components: { SideMenu, Content },
+  components: {
+    SideMenu,
+    BookContent
+  },
   data () {
     return {
       options: OPTIONS,

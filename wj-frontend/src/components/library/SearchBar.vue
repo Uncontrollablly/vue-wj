@@ -24,9 +24,7 @@ export default {
   name: 'SearchBar',
   data () {
     return {
-      keywords: '',
-      books: [],
-      cardLoading: []
+      keywords: ''
     }
   },
   methods: {
